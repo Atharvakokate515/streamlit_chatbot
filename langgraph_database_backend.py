@@ -1,15 +1,19 @@
 from langgraph.graph import StateGraph, START, END
 from typing import TypedDict, Annotated
 from langchain_core.messages import BaseMessage, HumanMessage
-from langchain_openai import ChatOpenAI
-from langgraph.checkpoint.postgres.aio import AsyncPostgresSaver
+from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
+from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph.message import add_messages
 from dotenv import load_dotenv
 import sqlite3
 
 load_dotenv()
 
-llm = ChatOpenAI()
+llm_1 = HuggingFaceEndpoint(
+    repo_id="meta-llama/Llama-3.3-70B-Instruct",
+    task = "text-generation"
+)
+llm = ChatHuggingFace(llm= llm_1)
 
 class ChatState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
