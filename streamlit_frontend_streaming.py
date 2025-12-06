@@ -12,7 +12,7 @@ if 'message_history' not in st.session_state:
 for message in st.session_state['message_history']:
     with st.chat_message(message['role']):
         st.text(message['content'])
-
+        
 #{'role': 'user', 'content': 'Hi'}
 #{'role': 'assistant', 'content': 'Hi=ello'}
 
